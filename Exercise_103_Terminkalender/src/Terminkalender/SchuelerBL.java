@@ -5,9 +5,13 @@
  */
 package Terminkalender;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -37,6 +41,13 @@ public class SchuelerBL {
     
     public void load(File f) throws Exception
     {
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String line;
         
+        while((line = br.readLine()) != null)
+        {
+            String parts[] = line.split(";");
+            li.add(new Schueler(parts[0], LocalDate.parse(parts[1], DateTimeFormatter.ISO_DATE)));
+        }
     }
 }
