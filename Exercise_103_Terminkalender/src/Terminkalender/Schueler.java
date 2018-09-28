@@ -5,13 +5,14 @@
  */
 package Terminkalender;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author Richard Hofmeister
  */
-public class Schueler {
+public class Schueler implements Serializable{
     private String name;
     private LocalDate birthday;
 

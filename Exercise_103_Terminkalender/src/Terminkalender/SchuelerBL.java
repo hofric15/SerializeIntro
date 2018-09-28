@@ -8,8 +8,14 @@ package Terminkalender;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,28 +34,26 @@ public class SchuelerBL {
     
     public void save(File f) throws Exception
     {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+        OutputStream fos = null;
+        
+        fos = new FileOutputStream(f);
+        ObjectOutputStream o = new ObjectOutputStream(fos);
         for (Schueler s : li) {
-            bw.write(s.getName());
-            bw.write(";");
-            bw.write(s.getBirthday().toString());
-            bw.newLine();
+            o.writeObject(s);
         }
-        bw.flush();
-        bw.close();
+        
+        o.flush();
+        o.close();
     }
     
     public void load(File f) throws Exception
     {
-        BufferedReader br = new BufferedReader(new FileReader(f));
-        String line;
+        InputStream fis = null;
         
-        while((line = br.readLine()) != null)
-        {
-            String parts[] = line.split(";");
-            li.add(new Schueler(parts[0], LocalDate.parse(parts[1], DateTimeFormatter.ISO_DATE)));
-        }
-        br.close();
+        fis = new FileInputStream(f);
+        ObjectInputStream o = new ObjectInputStream(fis);
+        String name = (String) o.readObject();
+        LocalDate birthday = LocalDate.parse((String) o.readObject(), DateTimeFormatter.ISO_DATE);
     }
     
     public void print()
