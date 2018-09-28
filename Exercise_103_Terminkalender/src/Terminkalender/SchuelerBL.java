@@ -7,6 +7,7 @@ package Terminkalender;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -52,7 +53,16 @@ public class SchuelerBL {
         
         fis = new FileInputStream(f);
         ObjectInputStream o = new ObjectInputStream(fis);
+        try {
+            Object s;
+            while ((s = o.readObject()) != null) {
+                li.add((Schueler) s);
+            }
+        } catch (EOFException eOFException) {
+            //this catch is only to determine end of file
+        }
         
+        o.close();
     }
     
     public void print()
