@@ -16,7 +16,7 @@ public class LoadTester {
             
     SchuelerBL bl = new SchuelerBL();
     try{
-        bl.load(new File("./klasse.csv"));
+        bl.load(new File("./klasse.bin"));
         bl.print();
     }catch (Exception e)
     {

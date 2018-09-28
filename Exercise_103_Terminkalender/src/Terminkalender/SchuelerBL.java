@@ -52,8 +52,7 @@ public class SchuelerBL {
         
         fis = new FileInputStream(f);
         ObjectInputStream o = new ObjectInputStream(fis);
-        String name = (String) o.readObject();
-        LocalDate birthday = LocalDate.parse((String) o.readObject(), DateTimeFormatter.ISO_DATE);
+        
     }
     
     public void print()
