@@ -49,5 +49,13 @@ public class SchuelerBL {
             String parts[] = line.split(";");
             li.add(new Schueler(parts[0], LocalDate.parse(parts[1], DateTimeFormatter.ISO_DATE)));
         }
+        br.close();
+    }
+    
+    public void print()
+    {     
+        for (Schueler s : li) {
+            System.out.println(s.getName()+","+s.getBirthday().toString());
+        }
     }
 }
